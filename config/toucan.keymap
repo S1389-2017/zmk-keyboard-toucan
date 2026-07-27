@@ -35,6 +35,21 @@
             bindings = <&kp TAB>;
             key-positions = <1 2>;
         };
+
+        escape {
+            bindings = <&kp ESCAPE>;
+            key-positions = <25 26>;
+        };
+
+        mb1 {
+            bindings = <&mkp MB1>;
+            key-positions = <4 5>;
+        };
+
+        mb2 {
+            bindings = <&mkp MB2>;
+            key-positions = <6 7>;
+        };
     };
 
     keymap {
