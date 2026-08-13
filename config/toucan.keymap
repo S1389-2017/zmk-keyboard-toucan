@@ -2,6 +2,7 @@
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/pointing.h>
+#include <dt-bindings/zmk/modifiers.h>
 
 #define BASE 0
 #define NAV  1
@@ -32,6 +33,17 @@
 #define JP_RBRACE       PIPE              // }
 
 / {
+    behaviors {
+        // Shiftを押していない時は "-"、Shiftを押している時はJIS配列で "_" になる
+        // ろ(INTERNATIONAL_1)+Shiftを送るキーコードに切り替える
+        jis_minus: jis_minus {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&kp MINUS>, <&kp JP_UNDERSCORE>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+    };
+
     conditional_layers {
         compatible = "zmk,conditional-layers";
 
@@ -81,7 +93,7 @@
         base {
             display-name = "BASE";
             bindings = <
-&none  &kp Q  &kp W  &kp E  &kp R  &kp T  &kp Y  &kp U  &kp I  &kp O  &kp P  &none  &none  &kp A  &kp S  &kp D  &kp F  &kp G  &kp H  &kp J  &kp K  &kp L  &kp MINUS  &none  &none  &mt LCTRL Z  &kp X  &kp C  &kp V  &kp B  &kp N  &kp M  &kp COMMA  &kp DOT  &kp FSLH  &none  &kp LEFT_ALT  &kp LEFT_SHIFT  &lt 1 SPACE  &lt 2 ENTER  &kp BACKSPACE  &kp RIGHT_META
+&none  &kp Q  &kp W  &kp E  &kp R  &kp T  &kp Y  &kp U  &kp I  &kp O  &kp P  &none  &none  &kp A  &kp S  &kp D  &kp F  &kp G  &kp H  &kp J  &kp K  &kp L  &jis_minus  &none  &none  &mt LCTRL Z  &kp X  &kp C  &kp V  &kp B  &kp N  &kp M  &kp COMMA  &kp DOT  &kp FSLH  &none  &kp LEFT_ALT  &kp LEFT_SHIFT  &lt 1 SPACE  &lt 2 ENTER  &kp BACKSPACE  &kp RIGHT_META
             >;
         };
 
@@ -107,9 +119,7 @@
         };
 
         extra_1 { status = "reserved"; };
-
         extra_2 { status = "reserved"; };
-
         extra_3 { status = "reserved"; };
     };
 };
